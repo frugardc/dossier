@@ -17,7 +17,6 @@ module Dossier
     end
 
     def to_xls
-      kdlskad;lkslakd;lsk
       excel_package = Xls.new(*collection_and_headers(report.raw_results.arrays))
       outstrio = StringIO.new
       outstrio.write(excel_package.to_stream.read)
