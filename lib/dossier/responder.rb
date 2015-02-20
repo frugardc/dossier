@@ -17,7 +17,7 @@ module Dossier
     end
 
     def to_xls
-      excel_package = Xls.new(*collection_and_headers(report.raw_results.arrays))
+      excel_package = Xls.new(*collection_and_headers(report.raw_results.arrays)).file
       outstrio = StringIO.new
       outstrio.write(excel_package.to_stream.read)
       
