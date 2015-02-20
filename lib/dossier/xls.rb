@@ -9,22 +9,14 @@ module Dossier
       @collection = collection
     end
 
-    def each
-      yield HEADER
-      yield as_row(@headers)
-      @collection.each { |record| yield as_row(record) }
-      yield FOOTER
-    end
-
-    private
-
-    def as_cell(el)
-      %{<Cell><Data ss:Type="String">#{el}</Data></Cell>}
-    end
-
-    def as_row(array)
-      my_array = array.map{|a| as_cell(a)}.join("\n")
-      "<Row>\n" + my_array + "\n</Row>\n"
+    def each 
+      p = Axlsx::Package.new
+      p.workbook.add_worksheet() do |sheet|
+        sheet.add_row(@headers)
+        @collection.each{|record| sheet.add_row(record)}
+      end
+      p.use_shared_strings = true
+      p.serialize("circuit_id_validation.xlsx")
     end
   end
 end
