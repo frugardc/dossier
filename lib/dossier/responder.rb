@@ -17,9 +17,14 @@ module Dossier
     end
 
     def to_xls
+      kdlskad;lkslakd;lsk
+      excel_package = Xls.new(*collection_and_headers(report.raw_results.arrays))
+      outstrio = StringIO.new
+      outstrio.write(excel_package.to_stream.read)
+      
       set_content_disposition!
-      controller.response_body = Xls.new(*collection_and_headers(report.raw_results.arrays))
-    end
+      controller.send_data outstrio.string, :filename => "excel.xlsx"
+    end 
 
     def respond
       multi_report_html_only!
