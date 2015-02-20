@@ -22,7 +22,7 @@ module Dossier
       outstrio.write(excel_package.to_stream.read)
       
       set_content_disposition!
-      controller.send_data outstrio.string, :filename => "excel.xlsx"
+      controller.send_data outstrio.string
     end 
 
     def respond
